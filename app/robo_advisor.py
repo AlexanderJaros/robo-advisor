@@ -57,6 +57,14 @@ recent_low = min(low_prices)
 # INFO INPUTS
 #
 
+#csv_file_path = "data/prices.csv"
+csv_file_path = os.path.join(os.path.dirname(__file__), "..", "data", "prices.csv")
+
+with open(csv_file_path, "w") as csv_file:
+        writer = csv.DictWriter(csv_file, fieldnames=["1", "2"])
+        writer.writeheader() #uses fieldnames set above
+        writer.writerow({"1": "New York", "2": "DC"})
+
 print("-------------------------")
 print("SELECTED SYMBOL: XYZ")
 print("-------------------------")
@@ -71,14 +79,8 @@ print("-------------------------")
 print("RECOMMENDATION: BUY!")
 print("RECOMMENDATION REASON: TODO")
 print("-------------------------")
-print("WRITING DATA TO CSV...")
+print(f"WRITING DATA TO CSV: {csv_file_path}...")
 print("-------------------------")
 print("HAPPY INVESTING!")
 print("-------------------------")
 
-csv_file_path = "data/prices.csv"
-
-with open(csv_file_path, "w") as csv_file:
-        writer = csv.DictWriter(csv_file, fieldnames=["1", "2"])
-        writer.writeheader() #uses fieldnames set above
-        writer.writerow({"1": "New York", "2": "DC"})
