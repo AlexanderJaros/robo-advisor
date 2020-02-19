@@ -57,6 +57,10 @@ recent_low = min(low_prices)
 # INFO INPUTS
 #
 
+#
+# CSV CREATION
+#
+
 #csv_file_path = "data/prices.csv"
 csv_file_path = os.path.join(os.path.dirname(__file__), "..", "data", "prices.csv")
 
@@ -74,7 +78,13 @@ with open(csv_file_path, "w") as csv_file:
             "volume": daily_prices["5. volume"]
             })
 
+#
+# CSV CREATION
+#
 
+#
+# FINAL OUTPUTS
+#
 
 print("-------------------------")
 print("SELECTED SYMBOL: XYZ")
@@ -95,3 +105,6 @@ print("-------------------------")
 print("HAPPY INVESTING!")
 print("-------------------------")
 
+#
+# FINAL OUTPUTS
+#
