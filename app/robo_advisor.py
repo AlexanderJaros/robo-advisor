@@ -7,8 +7,7 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-API_KEY = os.getenv("ALPHAVANTAGE_API_KEY", defaults="OOPS")
-
+API_KEY = os.getenv("ALPHAVANTAGE_API_KEY") #,defaults="OOPS" not working
 def to_usd(my_price):
     return "${0:,.2f}".format(my_price)
 
@@ -44,8 +43,8 @@ high_prices = []
 
 
 for date in dates:
-    print(date)
-
+    high_price = tsd[date]["2. high"]
+    high_prices.append(float(high_price))
 
 # maximum of all high prices
 recent_high = max(high_prices)
