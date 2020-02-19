@@ -4,6 +4,7 @@ import requests
 import json
 import os 
 from dotenv import load_dotenv
+import csv
 
 load_dotenv()
 
@@ -70,5 +71,14 @@ print("-------------------------")
 print("RECOMMENDATION: BUY!")
 print("RECOMMENDATION REASON: TODO")
 print("-------------------------")
+print("WRITING DATA TO CSV...")
+print("-------------------------")
 print("HAPPY INVESTING!")
 print("-------------------------")
+
+csv_file_path = "data/prices.csv"
+
+with open(csv_file_path, "w") as csv_file:
+        writer = csv.DictWriter(csv_file, fieldnames=["1", "2"])
+        writer.writeheader() #uses fieldnames set above
+        writer.writerow({"1": "New York", "2": "DC"})
