@@ -31,21 +31,22 @@ def to_usd(my_price):
 #
 #if Security == "stock":
 
-Symbol = input("Please enter stock symbol here: ")    
-if any(s.isdigit() for s in Symbol):
-    print("Your input should not include a number. Please enter again.")
-    Symbol = input("Please enter stock symbol here: ")
-#https://stackoverflow.com/questions/39613496/is-there-a-way-i-can-prevent-users-from-entering-numbers-with-input
-request_url_stock = f"https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol={Symbol}&apikey={API_KEY}"
-response = requests.get(request_url_stock)
-#print(type(response))
-#print(response.status_code)
-#print(response.text)
-parsed_response = json.loads(response.text)
-if "Error Message" in response.text: #Thanks Professor!
-    print("Please ensure that the ticker is valid.")
-    Symbol = input("Please enter stock symbol here: ")
-   
+while True:
+    Symbol = input("Please enter stock symbol here: ")    
+    if not any(s.isdigit() for s in Symbol):
+        #https://stackoverflow.com/questions/39613496/is-there-a-way-i-can-prevent-users-from-entering-numbers-with-input
+        request_url_stock = f"https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol={Symbol}&apikey={API_KEY}"
+        response = requests.get(request_url_stock)
+        #print(type(response))
+        #print(response.status_code)
+        #print(response.text)
+        parsed_response = json.loads(response.text)
+        if not "Error Message" in response.text: #Thanks Professor!
+            break
+        else:
+            print("Please ensure that the ticker is valid.")
+    else:
+        print("Your input should not include a number. Please enter again.")
 
 #if Security == "crypto":
 #    Symbol = input("Please enter cryptocurrency symbol here: ")
