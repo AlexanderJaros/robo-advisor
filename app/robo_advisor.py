@@ -12,6 +12,11 @@ dt_string = now.strftime("%d/%m/%Y %H:%M:%S") # dd/mm/YY H:M:S
 
 load_dotenv()
 
+import smtplib
+from email.mime.text import MIMEText 
+from email.mime.multipart import MIMEMultipart
+# used https://nitratine.net/blog/post/how-to-send-an-email-with-python/
+
 API_KEY = os.getenv("ALPHAVANTAGE_API_KEY") #,defaults="OOPS" not working
 def to_usd(my_price):
     return "${0:,.2f}".format(my_price)
@@ -178,4 +183,49 @@ print("-------------------------")
 
 #
 # FINAL OUTPUTS
+#
+
+#
+# EMAIL
+#
+
+valid_inputs = ["y", "n"]
+user_input = input("Would the customer like to be emailed a stock update? [y/n] ")
+if user_input not in valid_inputs:
+    print("This input is not valid, please try again.")
+    user_input = input("Would the customer like to be emailed their receipt? [y/n] ")
+if user_input == "y":
+     user_input2 = input("Please enter customer's email address: ")
+else: 
+    print("No update will be emailed.")
+    quit()
+
+load_dotenv()
+
+email = os.getenv("email")
+password = os.getenv("password")
+send_to_email = user_input2
+subject = "Here is your update!"
+message = f"Thank you for using the Robo Advisor. Your result for {Symbol} is {Recommendation} because: {Rec_Reason}" 
+
+msg = MIMEMultipart()
+msg['From'] = email
+msg['To'] = send_to_email
+msg['Subject'] = subject
+
+msg.attach(MIMEText(message, 'plain'))
+
+server = smtplib.SMTP('smtp.gmail.com', 587)
+server.starttls()
+server.login(email, password)
+text = msg.as_string()
+server.sendmail(email, send_to_email, text)
+server.quit()
+
+
+
+
+
+#
+# EMAIL
 #
