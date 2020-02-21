@@ -188,7 +188,7 @@ print("-------------------------")
 #
 # EMAIL
 #
-
+    
 valid_inputs = ["y", "n"]
 user_input = input("Would the customer like to be emailed a stock update? [y/n] ")
 if user_input not in valid_inputs:
@@ -206,7 +206,10 @@ email = os.getenv("email")
 password = os.getenv("password")
 send_to_email = user_input2
 subject = "Here is your update!"
-message = f"Thank you for using the Robo Advisor. Your result for {Symbol} is {Recommendation} because: {Rec_Reason}" 
+if recent_high > (recent_low*1.1):
+    message = f"Thank you for using the Robo Advisor. Note that there has been recent movement of 10% or greater in share price for this stock. Also, your recommendation for {Symbol} is {Recommendation} because: {Rec_Reason}" 
+else:
+    message = f"Thank you for using the Robo Advisor. Note that there has not been recent movement of 10% or greater in share price for this stock. Also, your recommendation for {Symbol} is {Recommendation} because: {Rec_Reason}" 
 
 msg = MIMEMultipart()
 msg['From'] = email
@@ -221,10 +224,6 @@ server.login(email, password)
 text = msg.as_string()
 server.sendmail(email, send_to_email, text)
 server.quit()
-
-
-
-
 
 #
 # EMAIL
