@@ -12,6 +12,16 @@ dt_string = now.strftime("%d/%m/%Y %H:%M:%S") # dd/mm/YY H:M:S
 
 load_dotenv()
 
+#import pandas as pd
+#import plotly.express as px 
+##https://plot.ly/python/plot-data-from-csv/
+
+from matplotlib import pyplot as plt
+from matplotlib import style 
+import numpy as np
+import csv
+import pandas as pd 
+
 import smtplib
 from email.mime.text import MIMEText 
 from email.mime.multipart import MIMEMultipart
@@ -24,13 +34,7 @@ def to_usd(my_price):
 #
 # INFO INPUTS
 #
-#TODO: does not work with crypto symbols, mutliple entries  
-#stock_symbol_inputs = []
-
-#Security = input("Are you inquiring on a stock or a cytrocurrency? Please enter 'stock' or 'crypto': ")
-#
-#if Security == "stock":
-
+ 
 while True:
     Symbol = input("Please enter stock symbol here: ")    
     if not any(s.isdigit() for s in Symbol):
@@ -47,24 +51,6 @@ while True:
             print("Please ensure that the ticker is valid.")
     else:
         print("Your input should not include a number. Please enter again.")
-
-#if Security == "crypto":
-#    Symbol = input("Please enter cryptocurrency symbol here: ")
-#    if any(s.isdigit() for s in Symbol):
-#        print("Your input should not include a number. Please enter again.")
-#        Symbol = input("Please enter cryptocurrency symbol here: ")
-#    #https://stackoverflow.com/questions/39613496/is-there-a-way-i-can-prevent-users-from-entering-numbers-with-input
-#
-#    request_url_crypto = f"https://www.alphahttps://www.alphavantage.co/query?function=DIGITAL_CURRENCY_DAILY&symbol={Symbol}&market=CNY&apikey={API_KEY}"
-#
-#    response = requests.get(request_url_crypto)
-#
-#    parsed_response = json.loads(response.text)
-#
-#    if "Error Message" in response.text: 
-#        print("Please ensure that the ticker is valid.")
-#        Symbol = input("Please enter cryptocurrency symbol here: ")
-
 
 
 last_refreshed = parsed_response["Meta Data"]["3. Last Refreshed"]
@@ -183,6 +169,32 @@ print("HAPPY INVESTING!")
 print("-------------------------")
 
 #
+# LINE PLOT OUTPUT
+#
+
+#df = pd.read_csv("prices.csv")
+#
+#fig = px.line(df, x = "Time", y = "Price", title = f"{Symbol} Share Prices over time")
+#fig.show()
+
+headers = ["timestamp", "open", "high", "low", "close", "volume"]
+df = pd.read_csv("data\prices.csv")
+print(df)
+
+df.plot(x = "timestamp", y = "close")
+plt.title(f"{Symbol}'s Recent Price Movement (Reverse Time Display)")
+#plt.tight_layout()
+plt._show()
+#https://www.youtube.com/watch?v=MNLmQJtCCZY
+#https://stackoverflow.com/questions/42350381/how-to-plot-data-from-csv-for-specific-date-and-time-using-matplotlib
+
+#
+# LINE PLOT OUTPUT
+#
+
+
+
+#
 # FINAL OUTPUTS
 #
 
@@ -229,3 +241,30 @@ server.quit()
 #
 # EMAIL
 #
+
+#
+# Other Code 
+#
+
+#stock_symbol_inputs = []
+
+#Security = input("Are you inquiring on a stock or a cytrocurrency? Please enter 'stock' or 'crypto': ")
+#
+#if Security == "stock":
+
+#if Security == "crypto":
+#    Symbol = input("Please enter cryptocurrency symbol here: ")
+#    if any(s.isdigit() for s in Symbol):
+#        print("Your input should not include a number. Please enter again.")
+#        Symbol = input("Please enter cryptocurrency symbol here: ")
+#    #https://stackoverflow.com/questions/39613496/is-there-a-way-i-can-prevent-users-from-entering-numbers-with-input
+#
+#    request_url_crypto = f"https://www.alphahttps://www.alphavantage.co/query?function=DIGITAL_CURRENCY_DAILY&symbol={Symbol}&market=CNY&apikey={API_KEY}"
+#
+#    response = requests.get(request_url_crypto)
+#
+#    parsed_response = json.loads(response.text)
+#
+#    if "Error Message" in response.text: 
+#        print("Please ensure that the ticker is valid.")
+#        Symbol = input("Please enter cryptocurrency symbol here: ")
