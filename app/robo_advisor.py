@@ -169,6 +169,10 @@ print("HAPPY INVESTING!")
 print("-------------------------")
 
 #
+# FINAL OUTPUTS
+#
+
+#
 # LINE PLOT OUTPUT
 #
 
@@ -190,12 +194,6 @@ plt._show()
 
 #
 # LINE PLOT OUTPUT
-#
-
-
-
-#
-# FINAL OUTPUTS
 #
 
 #
