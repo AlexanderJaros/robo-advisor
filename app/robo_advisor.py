@@ -27,7 +27,7 @@ from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 # used https://nitratine.net/blog/post/how-to-send-an-email-with-python/
 
-API_KEY = os.getenv("ALPHAVANTAGE_API_KEY") #,defaults="OOPS" not working
+API_KEY = os.getenv("ALPHAVANTAGE_API_KEY", default = "OOPs - not working") 
 def to_usd(my_price):
     return "${0:,.2f}".format(my_price)
 
@@ -58,8 +58,7 @@ last_refreshed = parsed_response["Meta Data"]["3. Last Refreshed"]
 tsd = parsed_response["Time Series (Daily)"]
 
 
-dates = list(tsd.keys()) #TODO: sort to ensure latest day is first
-#assumes first day is on top, but consider sorting
+dates = list(tsd.keys()) 
 
 latest_day = dates[0] #"2020-02-18" 
 
@@ -175,11 +174,6 @@ print("-------------------------")
 #
 # LINE PLOT OUTPUT
 #
-
-#df = pd.read_csv("prices.csv")
-#
-#fig = px.line(df, x = "Time", y = "Price", title = f"{Symbol} Share Prices over time")
-#fig.show()
 
 headers = ["timestamp", "open", "high", "low", "close", "volume"]
 df = pd.read_csv("data\prices.csv")
