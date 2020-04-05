@@ -38,3 +38,17 @@ In a similar vein, this app gets its data from  AlphaVantage API and uses a priv
 https://www.alphavantage.co/
 
 And, of course, remember to create .gitignore files to hide your .env! 
+
+## Tests
+
+Install pytest package (first time only):
+
+```sh
+pip install pytest
+```
+
+Run tests:
+
+```sh
+pytest --disable-pytest-warnings
+```
