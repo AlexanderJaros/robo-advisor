@@ -198,7 +198,7 @@ valid_inputs = ["y", "n"]
 user_input = input("Would the customer like to be emailed a stock update? [y/n] ")
 if user_input not in valid_inputs:
     print("This input is not valid, please try again.")
-    user_input = input("Would the customer like to be emailed their receipt? [y/n] ")
+    user_input = input("Would the customer like to be emailed a stock update? [y/n] ")
 if user_input == "y":
      user_input2 = input("Please enter customer's email address: ")
 else: 
