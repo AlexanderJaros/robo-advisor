@@ -29,6 +29,16 @@ API_KEY = os.getenv("ALPHAVANTAGE_API_KEY", default = "OOPs - not working")
 
 def to_usd(my_price):
     return "${0:,.2f}".format(my_price)
+    """
+    Coverts a number to USD formatting, i.e. "$4.50".
+
+    Params:
+       my_price (numeric, like int or float) the number to be converted.
+
+    Examples:
+        to_usd(8)
+        to_usd(4.5)
+    """
 
 
 def get_response(symbol):
@@ -38,6 +48,18 @@ def get_response(symbol):
     if "Error Message" in response.text:
         return "Invalid input"
     return parsed_response
+    """
+    With help of your own API Key and a stock ticker input, retrieves recent 
+    stock data from Alphavantage website. Validates ticker input based on text in
+    JSON result.
+
+    Params:
+       symbol (alphabetic, text) the stock ticker to look up data for.
+
+    Examples:
+        get_response(TUSK)
+        get_response(F)
+    """
 
 def transform_response(parsed_response):
     # parsed_response should be a dictionary representing the original JSON response
@@ -57,10 +79,18 @@ def transform_response(parsed_response):
         rows.append(row)
 
     return rows
+    """
+    Coverts parsed response from the get_response function readable rows of data
+    that can be processed into a csv file. 
+
+    Params:
+       parsed_response (dictionary) the output of the above get_response function.
+
+    Examples:
+        transform_response(parsed_response)
+    """
 
 def write_to_csv(rows, csv_filepath):
-    # rows should be a list of dictionaries
-    # csv_filepath should be a string filepath pointing to where the data should be written
 
     csv_headers = ["timestamp", "open", "high", "low", "close", "volume"]
 
@@ -71,6 +101,18 @@ def write_to_csv(rows, csv_filepath):
             writer.writerow(row)
 
     return True
+    """
+    Write result of transform_response function into a specified csv filepath.
+
+    Params:
+       rows (list of dictionaries) variable set equal to result of 
+       transform_response function.
+       csv_filepath (string) filepath pointing to where the data should be written
+
+    Examples:
+        csv_filepath = os.path.join(os.path.dirname(__file__), "..", "data", "prices.csv")
+        write_to_csv(rows, csv_filepath)
+    """
 
 #
 # INFO INPUTS
